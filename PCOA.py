@@ -1,15 +1,10 @@
 def PCOA(N, T, fitness, lb, ub, dim):
-    # --- جدید: توابع مربوط به Gaussian Chaos و Quasi-Reflection ---
     def gaussian_chaotic_value():
-        """تولید یک عدد در بازه (0,1) از طریق نگاشت مقدار نرمال به سیگموید."""
         z = np.random.normal(0, 1)
         g = 1.0 / (1.0 + np.exp(-z))
         return g  # مقداری در (0,1)
 
     def gaussian_quasi_reflection(X, fit, Bast_P, fbest, lb, ub, fitness,t,T):
-        """
-        برای هر ذره، شبه‌مقابل و سپس بازتاب گاوسی‌شده را می‌سازد و در صورت بهبود، جایگزین می‌کند.
-        """
         mid = 0.5 * (lb + ub)  # (lb+ub)/2
         for i in range(X.shape[0]):
             x = X[i, :].copy()
@@ -34,7 +29,7 @@ def PCOA(N, T, fitness, lb, ub, dim):
             x_gqo = reflect_lower + np.random.rand(len(x)) * (reflect_upper - reflect_lower)
             x_gqo = np.clip(x_gqo, lb, ub)
 
-            # 5) ارزیابی و در صورت بهبود، جایگزین
+            # 5) Assessment
             f_qo = fitness(x_qo)
             f_gqo = fitness(x_gqo)
 
