@@ -46,18 +46,12 @@ def PCOA(N, T, fitness, lb, ub, dim):
                     fbest = fit[i]
 
         return X, fit, Bast_P, fbest
-    # --- پایان توابع جدید ---
+
     def local_refinement(Best_solution, best_score, fitness, lb, ub, dim, t, T):
-        # این تابع تلاش می‌کند در پایان هر تکرار، یک جستجوی محلی اطراف بهترین نقطه فعلی انجام دهد
-        # بدون تغییر نام متغیرها و توابع دیگر
-        
-        # محاسبه شعاع جستجوی محلی با کاهش در طول زمان
         radius = (ub[0]-lb[0]) * 0.1 * (1 - t/T)
         if radius <= 1e-100:
-            # اگر شعاع بسیار کوچک شد، نیازی به جستجوی محلی بیشتر نیست
             return Best_solution, best_score
 
-        # تعداد نقاط همسایه برای بررسی
         num_neighbors = 10
 
         improved = False
@@ -65,7 +59,6 @@ def PCOA(N, T, fitness, lb, ub, dim):
         new_best_score = best_score
 
         for _ in range(num_neighbors):
-            # تولید یک همسایه تصادفی اطراف Best_solution
             direction = np.random.randn(dim)
             direction = direction / (np.linalg.norm(direction) + 1e-30)
             candidate = Best_solution + direction * radius * (np.random.rand() * 1.0)
@@ -85,7 +78,7 @@ def PCOA(N, T, fitness, lb, ub, dim):
         u = np.random.randn(dim) * sigma
         v = np.random.randn(dim)
         step = u / np.abs(v)**(1 / beta)
-        return step * 0.01  # می‌توانید اندازه گام را در صورت نیاز تنظیم کنید
+        return step * 0.01  
  
     def calculate_beta(t, T, beta_min=1.5, beta_max=2.0, steepness=4.1, p=1.5):
         """
