@@ -2,7 +2,7 @@ def PCOA(N, T, fitness, lb, ub, dim):
     def gaussian_chaotic_value():
         z = np.random.normal(0, 1)
         g = 1.0 / (1.0 + np.exp(-z))
-        return g  # مقداری در (0,1)
+        return g  
 
     def gaussian_quasi_reflection(X, fit, Bast_P, fbest, lb, ub, fitness,t,T):
         mid = 0.5 * (lb + ub)  # (lb+ub)/2
